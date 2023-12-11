@@ -27,6 +27,11 @@ lerna-debug.log*
 *.launch
 .settings/
 *.sublime-workspace
+.env
+.env.development
+.env.tests
+tsconfig.tsbuildinfo
+yarn.lock
 
 # IDE - VSCode
 .vscode/*
@@ -35,13 +40,9 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 
+
 #docker
 .docker/*
 !.docker/entrypointer.sh
 !.docker/postgres/Dockerfile
 
-.env
-.env.development
-.env.tests
-tsconfig.tsbuildinfo
-yarn.lock
