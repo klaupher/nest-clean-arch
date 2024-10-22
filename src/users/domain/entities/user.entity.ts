@@ -58,6 +58,5 @@ export class UserEntity extends Entity<UserProps> {
     if (!isValid) {
       throw new EntityValidationError(validator.errors);
     }
-    return isValid;
   }
 }
