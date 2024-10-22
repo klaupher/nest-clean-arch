@@ -4,6 +4,6 @@ export type FieldsErrors = {
 
 export interface ValidateFieldsInterface<TValidated> {
   errors: FieldsErrors;
-  validateData: TValidated;
+  validatedData: TValidated;
   validate(data: any): boolean;
 }

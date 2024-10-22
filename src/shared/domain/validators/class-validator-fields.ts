@@ -1,20 +1,23 @@
 import { validateSync } from 'class-validator';
 import { FieldsErrors, ValidateFieldsInterface } from './validator-fields.interface';
+import { UserProps } from '@/users/domain/entities/user.entity';
 
 export abstract class ClassValidatorFields<T> implements ValidateFieldsInterface<T> {
   errors: FieldsErrors = null;
-  validateData: T = null;
+  validatedData: T = null;
+
   validate(data: any): boolean {
     const errors = validateSync(data);
-    if (errors) {
+
+    if (errors.length) {
       this.errors = {};
       for (const error of errors) {
         const field = error.property;
         this.errors[field] = Object.values(error.constraints);
       }
     } else {
-      this.validateData = data;
+      this.validatedData = data;
     }
-    return !this.errors.length;
+    return !errors.length;
   }
 }
