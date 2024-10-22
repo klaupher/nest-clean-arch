@@ -1,17 +1,19 @@
 import { faker } from '@faker-js/faker';
-import { UserEntity, UserProps } from '../../user.entity';
 import { UserDataBuilder } from '@/users/domain/testing/helpers/user-data-builder';
+import { UserEntity, UserProps } from '@/users/domain/entities/user.entity';
 
 describe('UserEntity unit tests', () => {
   let props: UserProps;
   let sut: UserEntity;
 
   beforeEach(() => {
+    UserEntity.validade = jest.fn();
     props = UserDataBuilder({});
     sut = new UserEntity(props);
   });
 
   it('Contructo method', () => {
+    expect(UserEntity.validade).toHaveBeenCalled();
     expect(sut.props.name).toEqual(props.name);
     expect(sut.props.email).toEqual(props.email);
     expect(sut.props.password).toEqual(props.password);
@@ -55,11 +57,14 @@ describe('UserEntity unit tests', () => {
 
   it('Should update a user', () => {
     sut.update('other name');
+    expect(UserEntity.validade).toHaveBeenCalled();
     expect(sut.name).toEqual('other name');
   });
 
   it('Should update the password field', () => {
     sut.updatePassword('other password');
+
+    expect(UserEntity.validade).toHaveBeenCalled();
     expect(sut.password).toEqual('other password');
   });
 });

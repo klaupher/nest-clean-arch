@@ -51,7 +51,6 @@ export default [
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-empty-interface': 'off',
       '@typescript-eslint/no-namespace': 'off',
-      'eslint-disable-next-line': 'off',
     },
   },
 ];
