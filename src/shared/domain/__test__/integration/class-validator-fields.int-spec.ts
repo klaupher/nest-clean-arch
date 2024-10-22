@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString, MaxLength } from 'class-validator';
-import { ClassValidatorFields } from '../../class-validator-fields';
-import { log } from 'console';
+import { ClassValidatorFields } from '../../validators/class-validator-fields';
 
 class StubRules {
   @MaxLength(255)
