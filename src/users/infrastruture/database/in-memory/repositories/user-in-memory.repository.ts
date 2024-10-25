@@ -8,7 +8,7 @@ export class UserInMemoryRepository
   extends InMemorySearchableRepository<UserEntity>
   implements UserRepository.Repository
 {
-  sortableFields: string[] = ['name', 'createAt'];
+  sortableFields: string[] = ['name', 'createdAt'];
 
   async findByEmail(email: string): Promise<UserEntity> {
     const entity = this.items.find(item => item.email === email);
@@ -21,16 +21,20 @@ export class UserInMemoryRepository
   async emailExists(email: string): Promise<void> {
     const entity = this.items.find(item => item.email === email);
     if (entity) {
-      throw new ConflictError(`Email address already in use`);
+      throw new ConflictError('Email address already used');
     }
   }
 
   protected async applyFilter(
     items: UserEntity[],
-    filter: UserRepository.Filter | null,
+    filter: UserRepository.Filter,
   ): Promise<UserEntity[]> {
-    if (!filter) return items;
-    return items.filter(item => item.props.name.toLowerCase().includes(filter.toLowerCase()));
+    if (!filter) {
+      return items;
+    }
+    return items.filter(item => {
+      return item.props.name.toLowerCase().includes(filter.toLowerCase());
+    });
   }
 
   protected async applySort(
