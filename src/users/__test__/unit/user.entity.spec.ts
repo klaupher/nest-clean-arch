@@ -50,9 +50,9 @@ describe('UserEntity unit tests', () => {
     expect(typeof sut.password).toBe('string');
   });
 
-  it('Getter CreateAt Field', () => {
-    expect(sut.createAt).toBeDefined();
-    expect(sut.createAt).toBeInstanceOf(Date);
+  it('Getter CreatedAt Field', () => {
+    expect(sut.createdAt).toBeDefined();
+    expect(sut.createdAt).toBeInstanceOf(Date);
   });
 
   it('Should update a user', () => {

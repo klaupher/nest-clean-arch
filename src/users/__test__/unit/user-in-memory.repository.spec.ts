@@ -3,7 +3,7 @@ import { UserEntity } from '@/users/domain/entities/user.entity';
 import { UserDataBuilder } from '@/users/domain/testing/helpers/user-data-builder';
 import { UserInMemoryRepository } from '@/users/infrastruture/database/in-memory/repositories/user-in-memory.repository';
 
-describe('InMemoryRepository unit tests', () => {
+describe('UserInMemoryRepository unit tests', () => {
   let sut: UserInMemoryRepository;
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('InMemoryRepository unit tests', () => {
     const result = await sut.findByEmail(entity.email);
     expect(entity.toJSON()).toStrictEqual(result.toJSON());
     expect(sut.emailExists(entity.email)).rejects.toThrow(
-      new ConflictError('Email address already in use'),
+      new ConflictError('Email address already used'),
     );
   });
 

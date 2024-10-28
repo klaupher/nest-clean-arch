@@ -1,7 +1,9 @@
-import { Entity } from '../../entities/entity';
-import { InMemorySearchableRepository } from '../../repositories/in-memory-searchable.repository';
-import { InMemoryRepository } from '../../repositories/in-memory.repository';
-import { SearchParams, SearchResult } from '../../repositories/searchable-repository-contracts';
+import { Entity } from '@/shared/domain/entities/entity';
+import { InMemorySearchableRepository } from '@/shared/domain/repositories/in-memory-searchable.repository';
+import {
+  SearchParams,
+  SearchResult,
+} from '@/shared/domain/repositories/searchable-repository-contracts';
 
 type StubEntityProps = {
   name: string;

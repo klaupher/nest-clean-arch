@@ -1,6 +1,6 @@
-import { Entity } from '../../entities/entity';
-import { NotFoundError } from '../../errors/errors';
-import { InMemoryRepository } from '../../repositories/in-memory.repository';
+import { Entity } from '@/shared/domain/entities/entity';
+import { NotFoundError } from '@/shared/domain/errors/errors';
+import { InMemoryRepository } from '@/shared/domain/repositories/in-memory.repository';
 
 type StubEntityProps = {
   name: string;
