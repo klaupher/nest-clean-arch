@@ -2,12 +2,12 @@ import { UserRepository } from '@/users/domain/repositories/user.repository';
 import { UserEntity } from '@/users/domain/entities/user.entity';
 import { HashProvider } from '@/shared/application/providers/hash-provider';
 import { UseCase as DefaultUseCase } from '@/shared/application/usecases/use-case';
+import { InvalidCredentialsError } from '@/shared/application/errors/invalid-credentials-error';
 import { BadRequestError } from '@/shared/application/errors/erros-application';
 import { UserOutput, UserOutputMapper } from '../dto/user.output';
 
-export namespace Signup {
+export namespace Signin {
   export type Input = {
-    name: string;
     email: string;
     password: string;
   };
@@ -19,21 +19,16 @@ export namespace Signup {
       private userRepository: UserRepository.Repository,
       private hashProvider: HashProvider,
     ) {}
-
     async execute(input: Input): Promise<Output> {
-      const { email, name, password } = input;
-
-      if (!email || !name || !password) {
+      const { email, password } = input;
+      if (!email || !password) {
         throw new BadRequestError('Input data not provided');
       }
-
-      await this.userRepository.emailExists(email);
-
-      const hashPassword = await this.hashProvider.generateHash(password);
-
-      const entity = new UserEntity(Object.assign(input, { password: hashPassword }));
-
-      await this.userRepository.insert(entity);
+      const entity = await this.userRepository.findByEmail(email);
+      const hashPasswordMatches = await this.hashProvider.compareHash(password, entity.password);
+      if (!hashPasswordMatches) {
+        throw new InvalidCredentialsError('Invalid credentials');
+      }
       return UserOutputMapper.toOutput(entity);
     }
   }

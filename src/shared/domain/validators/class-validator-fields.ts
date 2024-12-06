@@ -1,6 +1,5 @@
 import { validateSync } from 'class-validator';
 import { FieldsErrors, ValidateFieldsInterface } from './validator-fields.interface';
-import { UserProps } from '@/users/domain/entities/user.entity';
 
 export abstract class ClassValidatorFields<T> implements ValidateFieldsInterface<T> {
   errors: FieldsErrors = null;

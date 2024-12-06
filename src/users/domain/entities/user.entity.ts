@@ -7,6 +7,7 @@ export type UserProps = {
   email: string;
   password: string;
   createdAt?: Date;
+  role: 'USER' | 'ADMIN';
 };
 
 export class UserEntity extends Entity<UserProps> {
@@ -48,6 +49,15 @@ export class UserEntity extends Entity<UserProps> {
   get password() {
     return this.props.password;
   }
+
+  private set role(v: 'USER' | 'ADMIN') {
+    this.props.role = v;
+  }
+
+  get role() {
+    return this.props.role;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }

@@ -1,6 +1,15 @@
-import { IsDate, IsEmail, IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsDate,
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 import { UserProps } from '../entities/user.entity';
 import { ClassValidatorFields } from '@/shared/domain/validators/class-validator-fields';
+import { Role } from '@prisma/client';
 
 export class UserRules {
   @MaxLength(255)
@@ -19,12 +28,16 @@ export class UserRules {
   @IsNotEmpty()
   password: string;
 
+  @MaxLength(100)
+  @IsEnum(Role)
+  role: string;
+
   @IsDate()
   @IsOptional()
   createdAt: Date;
 
-  constructor({ name, email, password, createdAt }: UserProps) {
-    Object.assign(this, { name, email, password, createdAt });
+  constructor({ name, email, password, role, createdAt }: UserProps) {
+    Object.assign(this, { name, email, password, role, createdAt });
   }
 }
 

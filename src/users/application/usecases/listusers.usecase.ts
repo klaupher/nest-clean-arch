@@ -13,17 +13,18 @@ export namespace ListUsers {
   export type Output = PaginationOutput<UserOutput>;
 
   export class UseCase implements DefaultUseCase<Input, Output> {
-    //injeção de dependencia pelo construtor
     constructor(private userRepository: UserRepository.Repository) {}
 
     async execute(input: Input): Promise<Output> {
       const params = new UserRepository.SearchParams(input);
       const searchResult = await this.userRepository.search(params);
-      return;
+      return this.toOutput(searchResult);
     }
 
     private toOutput(searchResult: UserRepository.SearchResult): Output {
-      const items = searchResult.items.map(item => UserOutputMapper.toOutput(item));
+      const items = searchResult.items.map(item => {
+        return UserOutputMapper.toOutput(item);
+      });
       return PaginationOutputMapper.toOutput(items, searchResult);
     }
   }
